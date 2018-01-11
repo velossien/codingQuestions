@@ -226,11 +226,16 @@ console.log(`Remove Duplicates and show length: ${removeDuplicates(nums)}`);
 //Not in place
 let rotate = (nums, k) => {
     let rotateNums = [];
-    for (let i = k; i < nums.length; i++) {
+
+    if (k > nums.length) {
+        k = k - nums.length;
+    }
+
+    for (let i = nums.length - k; i < nums.length; i++) {
         rotateNums.push(nums[i]);
     }
 
-    for (let j = 0; j < k; j++) {
+    for (let j = 0; j < nums.length - k; j++) {
         rotateNums.push(nums[j]);
     }
 
@@ -239,13 +244,18 @@ let rotate = (nums, k) => {
 
 //in place
 let rotateInPlace = (nums, k) => {
-    for (let i = k; i < nums.length; i++) {
-        let swaps = 0;
+    if (k > nums.length) {
+        k = k - nums.length;
+    }
+
+    let swaps;
+    for (let i = nums.length - k; i < nums.length; i++) {
+        swaps = 0;
 
         for (let j = (i - 1); j >= 0; j--) {
-            if (swaps >= k) { break };
+            if (swaps >= nums.length - k) { break };
 
-            swap(nums, j + 1, j);
+            swap(nums, j, j + 1);
             swaps++;
         }
     }
@@ -258,6 +268,6 @@ let swap = (nums, i, j) => {
     nums[j] = tmpVal;
 }
 
-let rotArray = [1, 2, 3, 4, 5,6];
-console.log(`Rotate Array (not in place): ${rotate(rotArray, 2)}`)
-console.log(`Rotate Array (almost in place): ${rotateInPlace(rotArray, 2)}`)
+let rotArray = [1, 2, 3];
+console.log(`Rotate Array (not in place): ${rotate(rotArray, 3)}`)
+console.log(`Rotate Array (almost in place): ${rotateInPlace(rotArray, 3)}`)
