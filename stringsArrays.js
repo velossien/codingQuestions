@@ -271,3 +271,36 @@ let swap = (nums, i, j) => {
 let rotArray = [1, 2, 3];
 console.log(`Rotate Array (not in place): ${rotate(rotArray, 3)}`)
 console.log(`Rotate Array (almost in place): ${rotateInPlace(rotArray, 3)}`)
+
+
+/***********************************/
+//Reverse integer without turning it into a string.
+
+let reverse = (x) => {
+    let neg = false, i = 0, newNum = 0;
+
+    if (x < 0) {
+        neg = true;
+        x = x * -1;
+    };
+
+    let num = x;
+    while (num >= 10) {
+        num = num / 10;
+        i++;
+    };
+
+    while (i >= 0) {
+        newNum = newNum + ((x % 10) * Math.pow(10, i));
+        i--;
+        x = Math.floor(x / 10);
+    };
+
+    if (neg) {
+        newNum = newNum * -1;
+    };
+
+    return newNum;
+};
+
+console.log(`Reverse integers: ${reverse(-123456)}`);
