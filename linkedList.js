@@ -99,7 +99,31 @@ class LinkedList {
             return "Node does not exist.";
         }
     }
-}
 
+    //removes nth node from the end of a linked list.  Takes in a head node, and returns the head node again.
+    removeNthFromEnd = (head, n) => {
+        if (head.next == null) {
+            return null;
+        }
+    
+        let dummy = new ListNode(0);
+        dummy.next = head;
+        let first = dummy;
+        let second = dummy;
+    
+        // Advances first pointer so that the gap between first and second is n nodes apart
+        for (let i = 1; i <= n + 1; i++) {
+            first = first.next;
+        }
+    
+        // Move first to the end, maintaining the gap
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummy.next;
+    }
+}
 
 let linkedList = new LinkedList();
