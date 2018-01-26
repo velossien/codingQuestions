@@ -182,96 +182,62 @@ const intToString = (int) => {
 console.log(`Int to String: ${typeof intToString("1234")}`)
 
 /***********************************/
-// Make a function that duplicates an array:
 
-//One Way:
-let duplicate = (nums) => {
-    nums.forEach((value) => {
-        nums.push(value);
-    })
+/*
+Given two strings s and t, write a function to determine if t is an anagram of s.
 
-    return nums;
-}
+For example,
+s = "anagram", t = "nagaram", return true.
+s = "rat", t = "car", return false.
 
-console.log(duplicate([1, 2, 3, 4, 5])); // [1,2,3,4,5,1,2,3,4,5]
+Note:
+You may assume the string contains only lowercase alphabets.
+*/
 
-//Second way:
-let duplicate2 = (arr) => {
-    return arr.concat(arr);
-};
+let isAnagram = (s, t) => {
 
-console.log(duplicate2([1, 2, 3, 4, 5])); // [1,2,3,4,5,1,2,3,4,5]
+    let S = s.split("");
+    let T = t.split("");
 
-/***********************************/
-//Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
+    let count = S.length;
 
-let removeDuplicates = (nums) => {
-    if (nums.length == 0) { return 0 };
-    for (let i = 1; i < nums.length; i++) {
-        if (nums[i] === nums[i - 1]) {
-            nums.splice((i - 1), 1);
-            i--;
+    let hash = {}, anagram = true;
+
+
+    S.forEach((x) => {
+        if (hash[x]) {
+            hash[x]++;
+        } else {
+            hash[x] = 1;
         };
+    });
+
+    T.forEach((x) => {
+        if (hash[x]) {
+            if (hash[x] != 0) {
+                count--;
+                hash[x]--;
+            } else {
+                return anagram = false;
+            }
+        } else {
+            return anagram = false;
+        };
+    });
+
+    if (count != 0) {
+        return anagram = false;
+    } else {
+        return anagram;
     };
-
-    return nums.length;
 };
 
-let nums = [1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4];
-console.log(`Remove Duplicates and show length: ${removeDuplicates(nums)}`);
 
-/***********************************/
-//Rotate an array of n elements to the right by k steps
-
-//Not in place
-let rotate = (nums, k) => {
-    let rotateNums = [];
-
-    if (k > nums.length) {
-        k = k - nums.length;
-    }
-
-    for (let i = nums.length - k; i < nums.length; i++) {
-        rotateNums.push(nums[i]);
-    }
-
-    for (let j = 0; j < nums.length - k; j++) {
-        rotateNums.push(nums[j]);
-    }
-
-    return rotateNums;
-};
-
-//in place
-let rotateInPlace = (nums, k) => {
-    if (k > nums.length) {
-        k = k - nums.length;
-    }
-
-    let swaps;
-    for (let i = nums.length - k; i < nums.length; i++) {
-        swaps = 0;
-
-        for (let j = (i - 1); j >= 0; j--) {
-            if (swaps >= nums.length - k) { break };
-
-            swap(nums, j, j + 1);
-            swaps++;
-        }
-    }
-    return nums;
-}
-
-let swap = (nums, i, j) => {
-    let tmpVal = nums[i];
-    nums[i] = nums[j];
-    nums[j] = tmpVal;
-}
-
-let rotArray = [1, 2, 3];
-console.log(`Rotate Array (not in place): ${rotate(rotArray, 3)}`)
-console.log(`Rotate Array (almost in place): ${rotateInPlace(rotArray, 3)}`)
-
+let s = "resistance";
+let t = "ancestries";
+let t1 = "ances";
+console.log(`Returns true if two strings ("resistance","ancestries") are anagrams: ${isAnagram(s, t)}`);
+console.log(`Returns true if two strings ("resistance","ances") are anagrams: ${isAnagram(s, t1)}`);
 
 /***********************************/
 //Reverse integer without turning it into a string.

@@ -3,22 +3,22 @@
 // number given as an int
 
 let countPrimes = (n) => {
-    let count=0;  
-    let nums = new Array(n);
-    nums[0] = true;
-    nums[1] = true;
-    
-    for(let i=2; i<n; i++){
-      if(nums[i]!=true){count++};
-      
-      let num = 0;
-      for(let j = 2; num<n; j++){
-        num = i * j;
-        nums[num] = true;
-      }
-    }
-    
-    return count;
-  };
+  let count = 0, nums=[];
 
-  console.log(`Number of primes: ${countPrimes(10000000)}`);
+  if (n <= 1) { return 0 };
+
+  for (let i = 2; i < n; i++) {
+    if (nums[i] == undefined) { 
+
+      nums[i] = true;
+      count++;
+
+      for (let j = 2; j*i < n; j++) {
+        nums[i*j] = false;
+      };
+    };
+  };
+  return count;
+};
+
+console.log(`Number of primes: ${countPrimes(100000000)}`);
